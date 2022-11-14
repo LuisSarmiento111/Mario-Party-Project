@@ -16,9 +16,11 @@ public class PlayerInventory {
         playerInventory.add(item);
     }
 
-    public void useItem(int itemNum){
-
-        playerInventory.get(itemNum);
-
+    public boolean haveItem(String item){
+        boolean haveItem = false;
+        if (playerInventory.indexOf(item) != -1) {
+            haveItem = true;
+        }
+        return haveItem;
     }
 }
