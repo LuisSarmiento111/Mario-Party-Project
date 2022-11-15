@@ -5,23 +5,25 @@ public class MarioPartyGame {
     private int bots;
     private String map;
     private int maxTurns;
-    private int playerCoins;
+    private int firstPlayer;
+    private int playerTurn;
     private int currentTurn;
     private int playerSpace;
-    private ArrayList<String> gameItems;
     private ArrayList<String> maps;
 
-    public MarioPartyGame(int players, String map, int maxTurns){
-        this.players = players;
-        this.map = map;
-        this.maxTurns = maxTurns * players;
-        this.playerSpace = 0;
+
+    public MarioPartyGame(){
         maps = new ArrayList<>();
         maps.add("Lava Castle");
         maps.add("test1");
         maps.add("test2");
         maps.add("test3");
         maps.add("test4");
+    }
+    public MarioPartyGame(int players, String map, int maxTurns){
+        this.players = players;
+        this.map = map;
+        this.maxTurns = maxTurns * players;
     }
 
     public boolean isMap(String map){
@@ -35,31 +37,37 @@ public class MarioPartyGame {
         }
         return isMap;
     }
+
+    public boolean validAmountOfTurns(int turns){
+        boolean valid = true;
+        if (turns % 5 != 0) {
+            valid = false;
+        }
+        if (turns > 40) {
+            valid = false;
+        }
+        if (turns < 10) {
+            valid = false;
+        }
+        return valid;
+    }
     public int diceRoll() {
         int spacesMove = (int) (Math.random() * 10) + 1;
         return spacesMove;
     }
 
     public void simulateTurn(){
-        playerSpace += diceRoll();
+        playerTurn += diceRoll();
     }
-
-    public int goingFirst(){
+    public void determineFirst(){
+        int highestNum = 0;
+        int rollNumber = 0;
         for (int i = 1; i <= players; i++){
-
+            rollNumber = diceRoll();
+            if (rollNumber > highestNum){
+                highestNum = rollNumber;
+                firstPlayer = i;
+            }
         }
-        return 2;
-    }
-
-    public void itemUsage(ArrayList<String> player1, String item){
-        PlayerInventory tempPlayer1 = new PlayerInventory();
-        for (int i = 0; i < player1.size(); i++) {
-            tempPlayer1.addToInventory(player1.get(i));
-        }
-        if (player1.contains(item)) {
-            player1.remove(player1.indexOf(item));
-        }
-    }
-    public void itemAbility(){
     }
 }
