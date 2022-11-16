@@ -6,11 +6,8 @@ public class MarioPartyGame {
     private String map;
     private int maxTurns;
     private int firstPlayer;
-    private int playerTurn;
     private int currentTurn;
-    private int playerSpace;
     private ArrayList<String> maps;
-
 
     public MarioPartyGame(){
         maps = new ArrayList<>();
@@ -20,10 +17,11 @@ public class MarioPartyGame {
         maps.add("test3");
         maps.add("test4");
     }
+
     public MarioPartyGame(int players, String map, int maxTurns){
         this.players = players;
         this.map = map;
-        this.maxTurns = maxTurns * players;
+        this.maxTurns = maxTurns;
     }
 
     public boolean isMap(String map){
@@ -51,23 +49,38 @@ public class MarioPartyGame {
         }
         return valid;
     }
+
     public int diceRoll() {
         int spacesMove = (int) (Math.random() * 10) + 1;
         return spacesMove;
     }
 
-    public void simulateTurn(){
-        playerTurn += diceRoll();
+    public String simulateGame(ArrayList<Player> players){
+        String gameLog = "";
+        while (currentTurn < maxTurns){
+            for (int numPlayer = 0; numPlayer < players.size(); numPlayer++) {
+                gameLog += ("\nplayer" + ( 1 + numPlayer) + " has " + simulateTurn(players.get(numPlayer)));
+            }
+            currentTurn++;
+        }
+        return gameLog; // change for something cooler
     }
-    public void determineFirst(){
+
+    public String simulateTurn(Player player){
+        return player.updatePlayerSpace(diceRoll());
+    }
+
+    public void determineFirst(ArrayList<Player> players){
+        ArrayList<String> playerDiceRollNums = new ArrayList<>();
         int highestNum = 0;
-        int rollNumber = 0;
-        for (int i = 1; i <= players; i++){
-            rollNumber = diceRoll();
-            if (rollNumber > highestNum){
-                highestNum = rollNumber;
-                firstPlayer = i;
+        for (int i = 0; i < players.size(); i++){
+            playerDiceRollNums.add(Integer.toString(diceRoll()));
+            if (Integer.parseInt(playerDiceRollNums.get(i)) > highestNum){
+                highestNum = Integer.parseInt(playerDiceRollNums.get(i));
+                firstPlayer = i + 1;
             }
         }
+        System.out.println(playerDiceRollNums);
+        System.out.println(firstPlayer);
     }
 }

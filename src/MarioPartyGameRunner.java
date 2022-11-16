@@ -6,7 +6,7 @@ public class MarioPartyGameRunner {
         Scanner userInput = new Scanner(System.in);
         MarioPartyGame setup = new MarioPartyGame();
         System.out.println("Welcome to Mario Party!");
-        System.out.println("How many bots do you want to play with? (Up to three bots)");
+        System.out.println("How many people are playing? (Max of 4 players)");
         int playerAmount = Integer.parseInt(userInput.nextLine());
         System.out.println("The maps you can play are Lava Castle..."); // work on maps I guess
         System.out.println("Which map would you like to play?");
@@ -26,12 +26,16 @@ public class MarioPartyGameRunner {
         }
         MarioPartyGame MarioPartyGame = new MarioPartyGame(playerAmount,userMap,maxTurns);
         ArrayList<Player> players = new ArrayList<Player>();
-        for (int i = 0; i <= playerAmount; i++)
+        for (int i = 0; i <= playerAmount - 1; i++)
         {
             players.add(new Player());
         }
         System.out.println(players);
-        MarioPartyGame.determineFirst();
+        Items Items = new Items();
+        MarioPartyGame.determineFirst(players);
+        System.out.println(MarioPartyGame.simulateGame(players));
+        System.out.println(players.get(0).currentPlayerSpace());
+        /*
         players.get(1).addToInventory("taco");
         System.out.println(players.get(1).getPlayerInventory());
         players.get(1).addToInventory("burger");
@@ -40,5 +44,7 @@ public class MarioPartyGameRunner {
         System.out.println(players.get(1).getPlayerInventory());
         System.out.println(players.get(1).useItem("taco"));
         System.out.println(players.get(1).getPlayerInventory());
+
+         */
     }
 }

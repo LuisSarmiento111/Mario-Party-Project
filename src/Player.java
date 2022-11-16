@@ -4,11 +4,11 @@ public class Player {
 
     private ArrayList<String> playerInventory;
     private int playerCoins;
-    private int playerTurn;
+    private int playerSpace;
 
     public Player() {
         playerInventory = new ArrayList<>();
-        playerTurn = 0;
+        playerSpace = 0;
         playerCoins = 0;
     }
 
@@ -18,6 +18,15 @@ public class Player {
 
     public void addToInventory(String item) {
         playerInventory.add(item);
+    }
+
+    public String updatePlayerSpace(int number) {
+        playerSpace += number;
+        return "moved " + number + " spaces.";
+    }
+
+    public int currentPlayerSpace() {
+        return playerSpace;
     }
 
     public boolean haveItem(String item) {
