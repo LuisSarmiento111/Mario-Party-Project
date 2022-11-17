@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MarioPartyGame {
     private int players;
@@ -59,7 +61,7 @@ public class MarioPartyGame {
         String gameLog = "";
         while (currentTurn < maxTurns){
             for (int numPlayer = 0; numPlayer < players.size(); numPlayer++) {
-                gameLog += ("\nplayer" + ( 1 + numPlayer) + " has " + simulateTurn(players.get(numPlayer)));
+                gameLog += ("\nPlayer" + ( 1 + numPlayer) + " has " + simulateTurn(players.get(numPlayer)));
             }
             currentTurn++;
         }
@@ -73,14 +75,27 @@ public class MarioPartyGame {
     public void determineFirst(ArrayList<Player> players){
         ArrayList<String> playerDiceRollNums = new ArrayList<>();
         int highestNum = 0;
+        ArrayList<String> sortedPlayerDiceRollNums = new ArrayList<>();
         for (int i = 0; i < players.size(); i++){
             playerDiceRollNums.add(Integer.toString(diceRoll()));
             if (Integer.parseInt(playerDiceRollNums.get(i)) > highestNum){
                 highestNum = Integer.parseInt(playerDiceRollNums.get(i));
                 firstPlayer = i + 1;
+                System.out.print(playerDiceRollNums);
+                Collections.sort(playerDiceRollNums, Collections.reverseOrder());
             }
-        }
+        /*
+        sortedPlayerDiceRollNums = playerDiceRollNums;
+        Collections.sort(sortedPlayerDiceRollNums, Collections.reverseOrder());
         System.out.println(playerDiceRollNums);
-        System.out.println(firstPlayer);
+        System.out.println(sortedPlayerDiceRollNums);
+        for (int i = 0; i < players.size(); i++){
+
+        }
+
+         */
+        }
+        System.out.print(playerDiceRollNums);
+        System.out.print(firstPlayer);
     }
 }

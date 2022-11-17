@@ -44,7 +44,6 @@ public class MarioPartyGameRunner {
         System.out.println(players.get(1).getPlayerInventory());
         System.out.println(players.get(1).useItem("taco"));
         System.out.println(players.get(1).getPlayerInventory());
-
          */
     }
 }
