@@ -5,6 +5,7 @@ public class Player {
     private ArrayList<String> playerInventory;
     private int playerCoins;
     private int playerSpace;
+    private String name;
 
     public Player() {
         playerInventory = new ArrayList<>();
@@ -18,6 +19,14 @@ public class Player {
 
     public void addToInventory(String item) {
         playerInventory.add(item);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public String updatePlayerSpace(int number) {

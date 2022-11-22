@@ -62,48 +62,51 @@ public class MarioPartyGame {
         String gameLog = "";
         while (currentTurn < maxTurns){
             for (int numPlayer = 0; numPlayer < players.size(); numPlayer++) {
-                gameLog += ("\nPlayer" + ( 1 + numPlayer) + " has " + simulateTurn(players.get(numPlayer)));
+                if (playerOrder.get(numPlayer).getName().contains("Bot")) {
+
+                }
+                gameLog += ("\n" + playerOrder.get(numPlayer).getName() + " has " + simulateTurn(players.get(numPlayer)));
             }
             currentTurn++;
         }
         return gameLog; // change for something cooler
     }
 
+    public boolean gameOver(){
+        if (currentTurn == maxTurns) {
+            return true;
+        }
+        return false;
+    }
+
     public String simulateTurn(Player player){
         return player.updatePlayerSpace(diceRoll());
     }
 
-    public void determineFirst(ArrayList<Player> players){
+    public String determineFirst(ArrayList<Player> players){
         ArrayList<String> playerDiceRollNums = new ArrayList<>();
         int highestNum = 0;
         ArrayList<String> sortedPlayerDiceRollNums = new ArrayList<>();
         playerOrder = new ArrayList<>();
         for (int i = 0; i < players.size(); i++){
             playerDiceRollNums.add(Integer.toString(diceRoll()));
-            /*
-            if (Integer.parseInt(playerDiceRollNums.get(i)) > highestNum){
-                highestNum = Integer.parseInt(playerDiceRollNums.get(i));
-                firstPlayer = i + 1;
-                System.out.print(playerDiceRollNums);
-                Collections.sort(playerDiceRollNums, Collections.reverseOrder());
-            }
-             */
         }
         for (int i = 0; i < playerDiceRollNums.size(); i++) {
             sortedPlayerDiceRollNums.add(playerDiceRollNums.get(i));
         }
-        System.out.println(playerDiceRollNums);
-        for (int i = 0; i < playerDiceRollNums.size(); i++) {
+        for (int i = 0; i <= playerDiceRollNums.size(); i++) {
             Collections.sort(sortedPlayerDiceRollNums, Collections.reverseOrder());
         }
-        System.out.println(sortedPlayerDiceRollNums);
         for (int i = 0; i < players.size(); i++) {
-                playerOrder.add(players.get(sortedPlayerDiceRollNums.indexOf(playerDiceRollNums.get(i))));
-                playerDiceRollNums.set(i, "0");
+                playerOrder.add(players.get(playerDiceRollNums.indexOf(sortedPlayerDiceRollNums.get(i))));
+                playerDiceRollNums.set(playerDiceRollNums.indexOf(sortedPlayerDiceRollNums.get(i)), "0");
             }
-        System.out.println(playerOrder);
-        System.out.println(playerDiceRollNums);
-        firstPlayer = 20; // replace
-        System.out.println(firstPlayer);
+        firstPlayer = (players.indexOf(playerOrder.get(0))) + 1;
+        String orderOfPlayers = "";
+        orderOfPlayers += "\n" + playerOrder.get(0).getName() + " is first";
+        orderOfPlayers += "\n" + playerOrder.get(1).getName() + " is second";
+        orderOfPlayers += "\n" + playerOrder.get(2).getName() + " is third";
+        orderOfPlayers += "\n" + playerOrder.get(3).getName() + " is fourth";
+        return "Alright let's see who goes first!" + orderOfPlayers;
     }
 }

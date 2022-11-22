@@ -8,6 +8,11 @@ public class MarioPartyGameRunner {
         System.out.println("Welcome to Mario Party!");
         System.out.println("How many people are playing? (Max of 4 players)");
         int playerAmount = Integer.parseInt(userInput.nextLine());
+        while (playerAmount > 4 || playerAmount < 1) {
+            System.out.println("That is not a valid amount of players");
+            System.out.println("How many people are playing? (Max of 4 players)");
+            playerAmount = Integer.parseInt(userInput.nextLine());
+        }
         System.out.println("The maps you can play are Lava Castle..."); // work on maps I guess
         System.out.println("Which map would you like to play?");
         String userMap = userInput.nextLine();
@@ -28,11 +33,19 @@ public class MarioPartyGameRunner {
         ArrayList<Player> players = new ArrayList<Player>();
         for (int i = 0; i <= playerAmount - 1; i++)
         {
-            players.add(new Player());
+            players.add(new Player()); // make so names cant be the same
+            System.out.println("What is your name?");
+            players.get(i).setName(userInput.nextLine());
         }
         System.out.println(players);
+        // for (int i = 0; i < 4 - playerAmount; i++) {
+        //  players.add(new Player());
+        //     players.get(i + playerAmount).setName("Bot" + (i + 1));
+        // }
+        // System.out.println(players);
+
         Items Items = new Items();
-        MarioPartyGame.determineFirst(players);
+        System.out.println(MarioPartyGame.determineFirst(players));
         System.out.println(MarioPartyGame.simulateGame(players));
         System.out.println(players.get(0).currentPlayerSpace());
         /*
@@ -44,6 +57,7 @@ public class MarioPartyGameRunner {
         System.out.println(players.get(1).getPlayerInventory());
         System.out.println(players.get(1).useItem("taco"));
         System.out.println(players.get(1).getPlayerInventory());
+
          */
     }
 }
