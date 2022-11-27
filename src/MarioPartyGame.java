@@ -44,18 +44,22 @@ public class MarioPartyGame {
         if (turns % 5 != 0) {
             valid = false;
         }
-        if (turns > 50) {
+        if (turns > 40) {
             valid = false;
         }
-        if (turns < 20) {
+        if (turns < 10) {
             valid = false;
         }
         return valid;
     }
 
     public int diceRoll() {
-        int spacesMove = (int) (Math.random() * 6) + 1;
+        int spacesMove = (int) (Math.random() * 10) + 1;
         return spacesMove;
+    }
+
+    public String simulateDiceRoll(Player player) {
+        return player.updatePlayerSpace(diceRoll());
     }
 
     public String simulateGame(ArrayList<Player> players) {
@@ -78,10 +82,6 @@ public class MarioPartyGame {
         } else {
             return true;
         }
-    }
-
-    public String simulateDiceRoll(Player player) {
-        return player.updatePlayerSpace(diceRoll());
     }
 
     public String determineFirst(ArrayList<Player> players) {

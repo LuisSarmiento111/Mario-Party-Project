@@ -8,16 +8,21 @@ public class Player {
     private String name;
     private Maps map;
     private boolean doubled;
-    private boolean onStar;
+    private boolean passedStar;
     private int stars;
+    private boolean turnOver;
+
+    private MarioPartyGame gameLogic;
 
     public Player(Maps currentMap) {
         playerInventory = new ArrayList<>();
         playerSpace = 0;
         playerCoins = 0;
         map = currentMap;
-        onStar = false;
+        passedStar = false;
         stars = 0;
+        turnOver = false;
+        gameLogic = new MarioPartyGame();
     }
 
     public ArrayList<String> getPlayerInventory() {
@@ -38,6 +43,7 @@ public class Player {
 
     public String updatePlayerSpace(int spacesMoved) {
         String returnString = "";
+        int previousSpace = playerSpace;
         playerSpace += spacesMoved;
         returnString += name + " has moved " + spacesMoved + " spaces.\n";
         if (playerSpace > map.getMaxSpaces()) {
@@ -61,16 +67,17 @@ public class Player {
                 returnString += name + " landed on a red space.\nYou lose 3 coins.";
             }
         }
-        if (playerSpace == map.getStarSpace()) {
-            returnString = "";
+        if (playerCoins < 0) {
+            playerCoins = 0;
         }
-        if (map.getStarSpace() == playerSpace) {
-            onStar = true;
+        if (map.getStarSpace() > previousSpace && map.getStarSpace() <= playerSpace) {
+            passedStar = true;
         } else {
-            onStar = false;
+            passedStar = false;
         }
         returnString += "\n" + name + " currently has " + playerCoins + " coins.\n" + name +
                 " is currently on space " + playerSpace;
+        turnOver = true;
         return returnString;
     }
 
@@ -79,7 +86,7 @@ public class Player {
     }
 
     public boolean isOnStar() {
-        return onStar;
+        return passedStar;
     }
 
     public void updatePlayerCoins(int coins) {
@@ -114,6 +121,29 @@ public class Player {
         } else {
             return "You have decided not to buy a coin";
         }
+    }
+
+    public boolean isTurnOver() {
+        return turnOver;
+    }
+
+    public String actionSelected(int actionNum) {
+        String actionDoneByPlayer = "";
+        if (actionNum == 1) {
+            actionDoneByPlayer = updatePlayerSpace(gameLogic.diceRoll());
+        }
+        if (actionNum == 2) {
+
+        }
+        if (actionNum == 3) {
+            Maps playerMap = new Maps();
+            actionDoneByPlayer = playerMap.showMapWithPlayers();
+        }
+        return actionDoneByPlayer;
+    }
+
+    public void endOfTurn() {
+        turnOver = false;
     }
 
     public String useItem(String item) {

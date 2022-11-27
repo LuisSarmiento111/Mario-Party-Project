@@ -39,7 +39,7 @@ public class MarioPartyGameRunner {
         }
         System.out.println(4 - playerAmount + " bots have been added to the player list.\nThese are the people on the player list: " + playernames);
          */
-        System.out.println("How many turns do you guys want to play up to? (Min is 20, Max is 50, must be divisible by 5)"); // check to ensure max/min
+        System.out.println("How many turns do you guys want to play up to? (Min is 10, Max is 40, must be divisible by 5)"); // check to ensure max/min
         int maxTurns = Integer.parseInt(userInput.nextLine());
         while (setup.validAmountOfTurns(maxTurns) == false) {
             System.out.println("That is not a valid amount of turns");
@@ -53,23 +53,48 @@ public class MarioPartyGameRunner {
         System.out.println(MarioPartyGame.determineFirst(players));
         System.out.println("Alright now that the turn order has been decided, here are some coins to get you all started!");
         int currentTurn = 1;
+        int userAnswer = 0;
         while (MarioPartyGame.gameOver(currentTurn)) {
             for (int j = 0; j < playerAmount; j++) {
                 Player currentPlayerTurn = MarioPartyGame.getOrderOfPlayers().get(j);
-                System.out.println(MarioPartyGame.simulateDiceRoll(currentPlayerTurn));
-                if (currentPlayerTurn.isOnStar() == true && currentPlayerTurn.amountOfCoins() >= 20) {
-                    System.out.println(currentPlayerTurn.getName() + " landed on the star space.\nWould you like to buy a star? (yes or no)");
-                    String answer = userInput.nextLine().toLowerCase();
-                    while (answer.equals("yes") == false && answer.equals("no") == false) {
-                        System.out.println("That is not a valid answer.\nWould you like to buy a star? (yes or no)");
-                        answer = userInput.nextLine().toLowerCase();
+                while (currentPlayerTurn.isTurnOver() == false) {
+                    System.out.println("It's " + currentPlayerTurn.getName() + "'s turn.");
+                    System.out.println("What would you like to do " + currentPlayerTurn.getName() + "? (Answer with the corresponding number)");
+                    System.out.println("1. DiceRoll\n2. Use an item\n3. Check map");
+                    userAnswer = Integer.parseInt(userInput.nextLine());
+                    if (userAnswer <= 0 || userAnswer > 3) {
+                        System.out.println("That is not a valid answer");
+                        System.out.println("What would you like to do " + currentPlayerTurn.getName() + "? (Answer with the corresponding number)");
+                        System.out.println("1. DiceRoll\n2. Use an item\n3. Check map");
+                        userAnswer = Integer.parseInt(userInput.nextLine());
                     }
-                    System.out.println(currentPlayerTurn.buyStar(answer));
-                } else if (currentPlayerTurn.isOnStar() == true) {
-                    System.out.println(currentPlayerTurn.getName() + " landed on the star space.\nUnfortunately you do not have enough coins to " +
-                            "buy a star.");
+                    if (userAnswer == 2) {
+                        System.out.println("Which item do you want to use?(Case Sensitive)\nThis is your current inventory: " + currentPlayerTurn.getPlayerInventory());
+                        String item = userInput.nextLine();
+                        while (currentPlayerTurn.haveItem(item) == false) {
+                            System.out.println("You do not have that item in your inventory");
+                            System.out.println("Which item do you want to use?Case Sensitive)\nThis is your current inventory: " + currentPlayerTurn.getPlayerInventory());
+                            item = userInput.nextLine();
+                        }
+                        currentPlayerTurn.useItem(item);
+                    }
+                    System.out.println(currentPlayerTurn.actionSelected(userAnswer));
+                    if (currentPlayerTurn.isOnStar() == true && currentPlayerTurn.amountOfCoins() >= 20) {
+                        System.out.println(currentPlayerTurn.getName() + " passed by a star space.\nWould you like to buy a star? (yes or no)");
+                        String answer = userInput.nextLine().toLowerCase();
+                        while (answer.equals("yes") == false && answer.equals("no") == false) {
+                            System.out.println("That is not a valid answer.\nWould you like to buy a star? (yes or no)");
+                            answer = userInput.nextLine().toLowerCase();
+                        }
+                        System.out.println(currentPlayerTurn.buyStar(answer));
+                    } else if (currentPlayerTurn.isOnStar() == true) {
+                        System.out.println(currentPlayerTurn.getName() + " passed by a star space.\nUnfortunately you do not have enough coins to " +
+                                "buy a star.");
+                    }
+                    System.out.println();
+                    System.out.println(currentTurn);
                 }
-                System.out.println();
+                currentPlayerTurn.endOfTurn();
             }
             currentTurn++;
         }

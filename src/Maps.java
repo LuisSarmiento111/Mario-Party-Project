@@ -12,6 +12,9 @@ public class Maps {
     private int starSpace;
     private int barrelCannon;
 
+    public Maps() {
+    }
+
     public Maps(String map) {
         this.map = map.toLowerCase();
     }
@@ -19,7 +22,7 @@ public class Maps {
     public void setUpMap() {
         startingSpace = 0;
         if (map.equals("lava castle")) {
-            maxSpaces = 52;
+            maxSpaces = 86;
             blueSpaces = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20,
                     21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52));
             redSpaces = new ArrayList<Integer>(Arrays.asList(1, 8, 18, 29, 35, 45));
@@ -84,5 +87,9 @@ public class Maps {
                     "\nThe star space is currently located at: " + getStarSpace();
         }
         return "";
+    }
+
+    public String showMapWithPlayers() {
+        return "testing"; //
     }
 }
