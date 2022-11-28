@@ -77,6 +77,7 @@ public class MarioPartyGameRunner {
                 Player currentPlayerTurn = MarioPartyGame.getOrderOfPlayers().get(j);
                 while (currentPlayerTurn.isTurnOver() == false) {
                     if (currentPlayerTurn.isBot == false) {
+                        currentPlayerTurn.setPlayers(players);
                         System.out.println("\033[1mIt's " + currentPlayerTurn.getName() + "'s turn.\033[0m");
                         System.out.println("What would you like to do " + currentPlayerTurn.getName() + "? (Answer with the corresponding number)");
                         System.out.println("1. DiceRoll\n2. Use an item");

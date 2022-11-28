@@ -1,10 +1,19 @@
 import java.util.ArrayList;
 
+/**
+ * The Items class represents an Item list. An item list is a list of items that are currently in the game, and the
+ * list of players that are going to use them
+ */
 public class Items {
 
     private ArrayList<String> gameItems;
     private ArrayList<Player> players;
 
+    /**
+     * Constructor for the Items class. This creates a new instance of a Items given the below parameters
+     *
+     * @param players an ArrayList<Player> representing the list of players that will be using these items
+     */
     public Items(ArrayList<Player> players) {
         gameItems = new ArrayList<>();
         gameItems.add("Mushroom");
@@ -16,6 +25,10 @@ public class Items {
         players = new ArrayList<>();
     }
 
+    /**
+     * Constructor for the Items class. This creates a new instance of a Items with no parameters.
+     * This is mainly used to fix bugs and keep smoothness
+     */
     public Items() {
         gameItems = new ArrayList<>();
         gameItems.add("Mushroom");
@@ -27,18 +40,32 @@ public class Items {
     }
 
 
+    /**
+     * The getGameItems method will give you the list of items that are in the game
+     *
+     * @return an ArrayList<String> representing the items in the game
+     */
     public ArrayList<String> getGameItems() {
         return gameItems;
     }
 
+    /**
+     * The getAmountOfItems method will give you how many items that are in the game
+     *
+     * @return an integer representing how many items are in the game
+     */
     public int getAmountOfItems() {
         return gameItems.size();
     }
 
-    public void addItem(String item) {
-
-    }
-
+    /**
+     * The itemEffects method will determine the effect of a given item will do to the player that is using it and to
+     * the other players in the game
+     *
+     * @param item   a String representing the item that was used
+     * @param player a Player representing the player that used the item
+     * @return a String representing the effect of the item that was used
+     */
     public String itemEffects(String item, Player player) {
         if (item.equals("Mushroom")) {
             player.changeSpacesMoved(5);

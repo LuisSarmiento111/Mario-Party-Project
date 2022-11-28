@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The Maps class represents a Map. A map has its max amount of spaces, a starting space, their blue spaces, their red
+ * spaces, their star space, their bowser spaces, their lucky spaces, and their item spaces
+ */
 public class Maps {
 
     private String map;
@@ -13,13 +17,19 @@ public class Maps {
     private ArrayList<Integer> luckySpaces;
     private ArrayList<Integer> itemSpaces;
 
-    public Maps() {
-    }
 
+    /**
+     * Constructor for the Maps class. This creates a new instance of a Map given the below parameters
+     *
+     * @param map a String representing the map that the game is being played on
+     */
     public Maps(String map) {
         this.map = map.toLowerCase();
     }
 
+    /**
+     * The setUpMap method will set up the map with all its unique spaces and attributes and star location
+     */
     public void setUpMap() {
         startingSpace = 0;
         if (map.equals("lava castle")) {
@@ -51,10 +61,20 @@ public class Maps {
         }
     }
 
+    /**
+     * The getBlueSpaces method will give you all the blue spaces
+     *
+     * @return an ArrayList<Integer> representing all the blue spaces on the map
+     */
     public ArrayList<Integer> getBlueSpaces() {
         return blueSpaces;
     }
 
+    /**
+     * The newStarSpace essentially creates a new star space on the map once someone buys a star
+     *
+     * @return a String representing where the star has moved on the map
+     */
     public String newStarSpace() {
         String starMovedTo = "The star moved to space ";
         if (map.equals("lava castle")) {
@@ -88,34 +108,65 @@ public class Maps {
         return starMovedTo;
     }
 
+    /**
+     * The getBlueSpaces method will give you all the red spaces
+     *
+     * @return an ArrayList<Integer> representing all the red spaces on the map
+     */
     public ArrayList<Integer> getRedSpaces() {
         return redSpaces;
     }
 
+    /**
+     * The getStarSpace method will give you where the star space is on the map
+     *
+     * @return an integer representing where the star is on the map
+     */
     public int getStarSpace() {
         return starSpace;
     }
 
+    /**
+     * The getMaxSpaces method will give you the amount of spaces there are on the map
+     *
+     * @return an integer representing the max amount of spaces on the current map
+     */
     public int getMaxSpaces() {
         return maxSpaces;
     }
 
+    /**
+     * The getBowserSpaces method will give you all the bowser spaces
+     *
+     * @return an ArrayList<Integer> representing all the bowser spaces on the map
+     */
     public ArrayList<Integer> getBowserSpaces() {
         return bowserSpaces;
     }
 
+    /**
+     * The getLuckySpaces method will give you all the lucky spaces
+     *
+     * @return an ArrayList<Integer> representing all the lucky spaces on the map
+     */
     public ArrayList<Integer> getLuckySpaces() {
         return luckySpaces;
     }
 
+    /**
+     * The getItemSpaces method will give you all the item spaces
+     *
+     * @return an ArrayList<Integer> representing all the item spaces on the map
+     */
     public ArrayList<Integer> getItemSpaces() {
         return itemSpaces;
     }
 
-    public String getMap() {
-        return map;
-    }
-
+    /**
+     * The mapDetails method will tell you what map you are on and state where all the unique spaces are on the current map
+     *
+     * @return a String representing the current map and it's spaces
+     */
     public String mapDetails() {
         return "Welcome to " + map + ".\n\u001B[34mThere are blue spaces at: "
                 + getBlueSpaces() + "\033[0m\n\u001B[31mThere are red spaces at: "
@@ -123,9 +174,5 @@ public class Maps {
                 "\033[0m\n\u001B[35mThere are bowser spaces at: " + getBowserSpaces() +
                 "\033[0m\n\u001B[36mThere are item spaces at: " + getItemSpaces() +
                 "\033[0m\n\u001B[33mThe star space is currently located at: " + getStarSpace() + "\033[0m";
-    }
-
-    public String showMapWithPlayers() {
-        return "testing"; //
     }
 }

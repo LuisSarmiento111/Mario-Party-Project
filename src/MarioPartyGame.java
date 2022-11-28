@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+
+/**
+ * The MarioPartyGame class represents the actual game of MarioParty. The game has an amount of players, current map,
+ * max amount of turns, who the first player will be, what the current turn is, what maps there are, and the order the players
+ * will play by
+ */
 public class MarioPartyGame {
     private int players;
     private Maps map;
@@ -11,6 +17,10 @@ public class MarioPartyGame {
     private ArrayList<String> maps;
     private ArrayList<Player> playerOrder;
 
+    /**
+     * Constructor for the MarioPartyGame class. This creates a new instance of a game with no parameters.
+     * This is mainly for smoothness and to fix bugs in the game
+     */
     public MarioPartyGame() {
         maps = new ArrayList<>();
         maps.add("lava castle");
@@ -33,6 +43,12 @@ public class MarioPartyGame {
         this.maxTurns = maxTurns;
     }
 
+    /**
+     * The isMap method will determine if the given map by the user is a map in the map pool for the game.
+     *
+     * @param map a string that represents the map inserted by the user
+     * @return returns true if map is in map pool and false if it's not.
+     */
     public boolean isMap(String map) {
         boolean isMap = false;
         int mapsIndex = 0;
@@ -45,6 +61,13 @@ public class MarioPartyGame {
         return isMap;
     }
 
+    /**
+     * The validAmountOfTurns method will determine if the amount of turns inserted by the user follows the
+     * range of valid turns set by the game
+     *
+     * @param turns integer that represents the amount of turns the user inserted
+     * @return true or false if it is a valid amount of turns
+     */
     public boolean validAmountOfTurns(int turns) {
         boolean valid = true;
         if (turns % 5 != 0) {
@@ -59,11 +82,22 @@ public class MarioPartyGame {
         return valid;
     }
 
+    /**
+     * The diceRoll method simulates a roll of a die with 10 sides.
+     *
+     * @return returns a number from 1-10.
+     */
     public int diceRoll() {
         int spacesMove = (int) (Math.random() * 10) + 1;
         return spacesMove;
     }
 
+    /**
+     * The gameOver method will determine if the game is over by checking the current turn of the game.
+     *
+     * @param currentTurn integer that represents the current turn that the game is at
+     * @return returns true or false if the game is over
+     */
     public boolean gameOver(int currentTurn) {
         if (currentTurn > maxTurns) {
             return false;
@@ -72,6 +106,13 @@ public class MarioPartyGame {
         }
     }
 
+    /**
+     * The determineFirst method will simulate every player rolling a die and then making whoever got the highest go first.
+     * Then it'll create an order of players for which the game will follow.
+     *
+     * @param players a list full of Player objects which represents all the players that are playing the game
+     * @return a String representing everyone's dice roll number from greatest to least and the player order
+     */
     public String determineFirst(ArrayList<Player> players) {
         ArrayList<String> playerDiceRollNums = new ArrayList<>();
         int highestNum = 0;
@@ -111,10 +152,21 @@ public class MarioPartyGame {
         return "Alright let's see who goes first!\n" + orderOfPlayers;
     }
 
+    /**
+     * The getOrderOfPlayers method will give the order of players in which the game will be played in
+     *
+     * @return the order of players
+     */
     public ArrayList<Player> getOrderOfPlayers() {
         return playerOrder;
     }
 
+    /**
+     * The winner method will determine who the winner is after a game is over. It will check who has the most stars and
+     * then tells you who it is.
+     *
+     * @return the player with the most amount of stars (the winner) or a tie if the star amount are the same.
+     */
     public String winner() {
         String winner = "";
         ArrayList<Integer> mostStars = new ArrayList<>();

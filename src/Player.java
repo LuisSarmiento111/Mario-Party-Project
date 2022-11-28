@@ -1,5 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
+/**
+ * The Player class represents a Player. A player is a human player with a name, amount of coins, an inventory,
+ * amount of stars, a space their on, mops they can play on, if they are receiving double coins, if they passed a star,
+ * if their turn is over, follows the logic of the game, if they're a bot, the players they're playing withhow many
+ * spaces they will move, they have to use a cursed dice block and if they have to use a halfway dice block
+ */
 public class Player {
 
     private ArrayList<String> playerInventory;
@@ -11,7 +18,6 @@ public class Player {
     private boolean passedStar;
     private int stars;
     private boolean turnOver;
-
     private MarioPartyGame gameLogic;
     boolean isBot;
     private Items itemLogic;
@@ -19,7 +25,15 @@ public class Player {
     private boolean cursedBlockActive;
 
     public boolean halfwayDiceActive;
+    public ArrayList<Player> players;
 
+    /**
+     * Constructor for the Player class. This creates a new instance of a Player given the below parameters and with
+     * set attributes.
+     *
+     * @param currentMap represents the current map the player is playing on
+     * @param isBot      represents if the player is an added bot or not
+     */
     public Player(Maps currentMap, boolean isBot) {
         playerInventory = new ArrayList<>();
         playerSpace = 0;
@@ -33,22 +47,50 @@ public class Player {
         currentSpacesMoved = 0;
     }
 
+    /**
+     * The getPlayerInventory method will give the player's inventory
+     *
+     * @return a list representing a player's inventory
+     */
     public ArrayList<String> getPlayerInventory() {
         return playerInventory;
     }
 
+    /**
+     * The addToInventory method will add a given item to the player's inventory
+     *
+     * @param item a String representing the item that will be added to the player's inventory
+     */
     public void addToInventory(String item) {
         playerInventory.add(item);
     }
 
+    /**
+     * The setName parameter sets the player's name to a given String
+     *
+     * @param name a String representing the name the player's name will be set to
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * The getName parameter will return a String which is the player's name
+     *
+     * @return a String representing the player's name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * The updatePlayerSpace method will update a player's space according to how many spaces they will move. It will
+     * the return a String showing the space they landed on and the effects of that space on the player
+     *
+     * @param spacesMoved an integer representing the amount of spaces the player will move
+     * @param player      represents the player the change is being made to
+     * @return a String representing all the changes/effects that occurred when the player moved
+     */
     public String updatePlayerSpace(int spacesMoved, Player player) {
         String returnString = "";
         int previousSpace = playerSpace;
@@ -57,6 +99,11 @@ public class Player {
         spacesMoved += currentSpacesMoved;
         if (cursedBlockActive) {
             spacesMoved = (int) (Math.random() * 3) + 1;
+            cursedBlockActive = false;
+        }
+        if (halfwayDiceActive) {
+            spacesMoved = (int) (Math.random() * 5) + 1;
+            halfwayDiceActive = false;
         }
         playerSpace += spacesMoved;
         returnString += name + " has moved " + spacesMoved + " spaces.\n";
@@ -116,22 +163,48 @@ public class Player {
         return returnString;
     }
 
+    /**
+     * The currentPlayerSpace method will return an integer representing the player's current space
+     *
+     * @return an integer representing the player's current space
+     */
     public int currentPlayerSpace() {
         return playerSpace;
     }
 
+    /**
+     * The passedStar method will return a boolean representing if the player passed by a star or not
+     *
+     * @return a boolean representing if the player passed by a star or not
+     */
     public boolean passedStar() {
         return passedStar;
     }
 
+    /**
+     * The updatePlayerCoins method will update the amount of coins that the player has
+     *
+     * @param coins an integer representing the amount of coins the user will gain/lose
+     */
     public void updatePlayerCoins(int coins) {
         playerCoins += coins;
     }
 
+    /**
+     * The amountOfCoins method will give how many coins the player has
+     *
+     * @return an integer representing the amount of coins the player has
+     */
     public int amountOfCoins() {
         return playerCoins;
     }
 
+    /**
+     * The haveItem method will determine if the user has the item that they inserted in their inventory
+     *
+     * @param item a String representing the item the user inserted
+     * @return a boolean representing if the user has that item in their inventory or not
+     */
     public boolean haveItem(String item) {
         boolean haveItem = false;
         if (playerInventory.indexOf(item) != -1) {
@@ -140,14 +213,27 @@ public class Player {
         return haveItem;
     }
 
+    /**
+     * The amountOfStars method will give how many stars the player has
+     *
+     * @return an integer representing the amount of stars the player has
+     */
     public int amountOfStars() {
         return stars;
     }
 
+    /**
+     * The updatePlayerStars method will update the amount of stars that the player has by one
+     */
     public void updateStars() {
         stars++;
     }
 
+    /**
+     * The bowserSpaceResults will determine the event that occurs when landing on a bowser space
+     *
+     * @return a String representing the event that occurred and how it affected the player
+     */
     public String bowserSpaceResults() {
         String results = "";
         int probabilityNum = (int) (Math.random() * 10) + 1;
@@ -170,6 +256,11 @@ public class Player {
         return results;
     }
 
+    /**
+     * The luckySpaceResults will determine the event that occurs when landing on a lucky space
+     *
+     * @return a String representing the event that occurred and how it affected the player
+     */
     public String luckySpaceResults() {
         String results = "";
         int probabilityNum = (int) (Math.random() * 10) + 1;
@@ -190,6 +281,11 @@ public class Player {
         return results;
     }
 
+    /**
+     * The itemSpaceResults will determine the event that occurs when landing on an item space
+     *
+     * @return a String representing the event that occurred and how it affected the player
+     */
     public String itemSpaceResults() {
         itemLogic = new Items();
         String results = "";
@@ -199,6 +295,12 @@ public class Player {
         return results;
     }
 
+    /**
+     * The buyStar method simulates a player buying a star when they pass one.
+     *
+     * @param answer a String representing the user's choice of buying a star (Either yes or no)
+     * @return a String representing the effect of the user's choice
+     */
     public String buyStar(String answer) {
         if (answer.equals("yes")) {
             updatePlayerCoins(-20);
@@ -209,10 +311,22 @@ public class Player {
         }
     }
 
+    /**
+     * The isTurnOver method returns if the user's turn is over or not
+     *
+     * @return a boolean representing if the turn of a user is over or not
+     */
     public boolean isTurnOver() {
         return turnOver;
     }
 
+    /**
+     * The actionSelected method simulates the user's choice of action in the game. It will give the effect of that action
+     *
+     * @param actionNum an integer representing what number choice the player made
+     * @param player    a Player representing who this choice is being made by
+     * @return a String representing the effects of the choice made
+     */
     public String actionSelected(int actionNum, Player player) {
         String actionDoneByPlayer = "";
         if (actionNum == 1) {
@@ -221,17 +335,24 @@ public class Player {
         if (actionNum == 2) {
 
         }
-        if (actionNum == 3) {
-            Maps playerMap = new Maps();
-            actionDoneByPlayer = playerMap.showMapWithPlayers();
-        }
         return actionDoneByPlayer;
     }
 
+    /**
+     * The endOfTurn method will make it so the player's turn is no longer over
+     */
     public void endOfTurn() {
         turnOver = false;
     }
 
+    /**
+     * The botAction method will simulate a bot and their choice of actions when it is their turn along with its effect
+     * in the game
+     *
+     * @param bot     a Player representing the bot who is making the choices
+     * @param players a ArrayList<Player> representing the list of players that are in the game
+     * @return a String representing what the bot decided to do and its effects
+     */
     public String botAction(Player bot, ArrayList<Player> players) {
         itemLogic = new Items(players);
         String botActionResults = "";
@@ -262,6 +383,15 @@ public class Player {
         return botActionResults + "\n";
     }
 
+    /**
+     * The useItem method simulates the user using an item of their choice and how it'll affect their or other players'
+     * next turn
+     *
+     * @param item    a String representing the item being used
+     * @param player  a Player representing the player who is using an item
+     * @param players a ArrayList<Player> representing a list of players in the game
+     * @return a String representing the effects of the item that was used
+     */
     public String useItem(String item, Player player, ArrayList<Player> players) {
         itemLogic = new Items();
         String itemResults = "";
@@ -270,20 +400,44 @@ public class Player {
         return itemResults;
     }
 
+    /**
+     * The changeSpacesMoved method will change amount spaces the player will move along with their dice roll.
+     *
+     * @param change an integer representing the amount of spaces that will be added
+     */
     public void changeSpacesMoved(int change) {
         currentSpacesMoved += change;
     }
 
+    /**
+     * The cursedBlockActive method will make it so the player will use a cursedBlock on their next turn
+     */
     public void cursedBlockActive() {
         cursedBlockActive = true;
     }
 
+    /**
+     * The halfwayDiceActive method will make it so the player will use a halfwayDice on their next turn
+     */
     public void halfwayDiceActive() {
         halfwayDiceActive = true;
     }
 
+    /**
+     * The setPlayerSpace method will set the player's current space to the inserted space
+     *
+     * @param space an integer representing the space that the player's space will be set to
+     */
     public void setPlayerSpace(int space) {
         playerSpace = space;
     }
-}
 
+    /**
+     * The setPlayers method will set the players that are playing into the player's data
+     *
+     * @param players an ArrayList<Player> representing the players playing the game
+     */
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+}
