@@ -4,7 +4,6 @@ import java.util.Collections;
 
 public class MarioPartyGame {
     private int players;
-    private int bots;
     private Maps map;
     private int maxTurns;
     private int firstPlayer;
@@ -21,6 +20,13 @@ public class MarioPartyGame {
         maps.add("test4");
     }
 
+    /**
+     * Constructor for the MarioPartyGame class. This creates a new instance of a game given the below parameters
+     *
+     * @param players  represents the number of players playing the game
+     * @param map      represents the map that is being played on
+     * @param maxTurns represetns the max amount of turns the game will last
+     */
     public MarioPartyGame(int players, Maps map, int maxTurns) {
         this.players = players;
         this.map = map;
@@ -58,24 +64,6 @@ public class MarioPartyGame {
         return spacesMove;
     }
 
-    public String simulateDiceRoll(Player player) {
-        return player.updatePlayerSpace(diceRoll());
-    }
-
-    public String simulateGame(ArrayList<Player> players) {
-        String gameLog = "";
-        while (currentTurn < maxTurns) {
-            for (int numPlayer = 0; numPlayer < players.size(); numPlayer++) {
-                if (playerOrder.get(numPlayer).getName().contains("Bot")) {
-
-                }
-                gameLog += ("\n" + playerOrder.get(numPlayer).getName() + " has " + simulateDiceRoll(players.get(numPlayer)));
-            }
-            currentTurn++;
-        }
-        return gameLog;
-    }
-
     public boolean gameOver(int currentTurn) {
         if (currentTurn > maxTurns) {
             return false;
@@ -91,10 +79,10 @@ public class MarioPartyGame {
         playerOrder = new ArrayList<>();
         String orderOfPlayers = "";
         for (int i = 0; i < players.size(); i++) {
-            playerDiceRollNums.add(Integer.toString(diceRoll()));
-            orderOfPlayers += players.get(i).getName() + "  ";
+            playerDiceRollNums.add(Integer.toString((int) (Math.random() * 9) + 1));
+            orderOfPlayers += players.get(i).getName() + "   ";
         }
-        orderOfPlayers = playerDiceRollNums + "\n " + orderOfPlayers;
+        orderOfPlayers = playerDiceRollNums + "\n" + orderOfPlayers;
         for (int i = 0; i < playerDiceRollNums.size(); i++) {
             sortedPlayerDiceRollNums.add(playerDiceRollNums.get(i));
         }
@@ -120,12 +108,6 @@ public class MarioPartyGame {
                 orderOfPlayers += "\n" + playerOrder.get(3).getName() + " is fourth";
             }
         }
-        /*
-        orderOfPlayers += "\n" + playerOrder.get(0).getName() + " is first";
-        orderOfPlayers += "\n" + playerOrder.get(1).getName() + " is second";
-        orderOfPlayers += "\n" + playerOrder.get(2).getName() + " is third";
-        orderOfPlayers += "\n" + playerOrder.get(3).getName() + " is fourth";
-         */
         return "Alright let's see who goes first!\n" + orderOfPlayers;
     }
 
@@ -143,15 +125,14 @@ public class MarioPartyGame {
         for (int i = 0; i < playerOrder.size(); i++) {
             sortedMostStars.add(mostStars.get(i));
         }
-        System.out.println(sortedMostStars);
+        winner += sortedMostStars + "\n" + playerOrder;
         for (int i = 0; i < playerOrder.size(); i++) {
             Collections.sort(sortedMostStars, Collections.reverseOrder());
         }
-        System.out.println(sortedMostStars);
         if (sortedMostStars.get(0) == sortedMostStars.get(1)) {
-            winner = "It was a tie";
+            winner += "\nIt was a tie";
         } else {
-            winner = "The winner is " + playerOrder.get(mostStars.indexOf(sortedMostStars.get(0))).getName();
+            winner += "\nThe winner is " + playerOrder.get(mostStars.indexOf(sortedMostStars.get(0))).getName();
         }
         return winner;
     }
