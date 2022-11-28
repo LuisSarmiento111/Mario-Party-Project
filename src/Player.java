@@ -21,11 +21,10 @@ public class Player {
     private MarioPartyGame gameLogic;
     boolean isBot;
     private Items itemLogic;
-    public int currentSpacesMoved;
+    private int currentSpacesMoved;
     private boolean cursedBlockActive;
-
-    public boolean halfwayDiceActive;
-    public ArrayList<Player> players;
+    private boolean halfwayDiceActive;
+    private ArrayList<Player> players;
 
     /**
      * Constructor for the Player class. This creates a new instance of a Player given the below parameters and with
