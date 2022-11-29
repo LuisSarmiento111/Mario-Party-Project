@@ -30,7 +30,7 @@ public class MarioPartyGameRunner {
         Maps currentMap = new Maps(userMap);
         System.out.println("How many people are playing? (Max of 4 players)");
         int playerAmount = Integer.parseInt(userInput.nextLine());
-        while (playerAmount > 4 || playerAmount < 1) {
+        while (playerAmount > 4 || playerAmount < 0) {
             System.out.println("That is not a valid amount of players");
             System.out.println("How many people are playing? (Max of 4 players)");
             playerAmount = Integer.parseInt(userInput.nextLine());

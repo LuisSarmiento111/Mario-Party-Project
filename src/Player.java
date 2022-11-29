@@ -394,7 +394,7 @@ public class Player {
     public String useItem(String item, Player player, ArrayList<Player> players) {
         itemLogic = new Items();
         String itemResults = "";
-        itemResults = itemLogic.itemEffects(item, player);
+        itemResults = itemLogic.itemEffects(item, player, players);
         playerInventory.remove(playerInventory.indexOf(item));
         return itemResults;
     }

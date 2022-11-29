@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Items {
 
     private ArrayList<String> gameItems;
-    private ArrayList<Player> players;
 
     /**
      * Constructor for the Items class. This creates a new instance of a Items given the below parameters
@@ -62,11 +61,12 @@ public class Items {
      * The itemEffects method will determine the effect of a given item will do to the player that is using it and to
      * the other players in the game
      *
-     * @param item   a String representing the item that was used
-     * @param player a Player representing the player that used the item
+     * @param item    a String representing the item that was used
+     * @param player  a Player representing the player that used the item
+     * @param players an arraylist of player objects representing the players playing the game
      * @return a String representing the effect of the item that was used
      */
-    public String itemEffects(String item, Player player) {
+    public String itemEffects(String item, Player player, ArrayList<Player> players) {
         if (item.equals("Mushroom")) {
             player.changeSpacesMoved(5);
             return player.getName() + " has used a mushroom. They have added +5 to their next turn.\n";

@@ -177,7 +177,10 @@ public class MarioPartyGame {
         for (int i = 0; i < playerOrder.size(); i++) {
             sortedMostStars.add(mostStars.get(i));
         }
-        winner += sortedMostStars + "\n" + playerOrder;
+        winner += sortedMostStars + "\n";
+        for (int i = 0; i < 4; i++) {
+            winner += playerOrder.get(i).getName() + " ";
+        }
         for (int i = 0; i < playerOrder.size(); i++) {
             Collections.sort(sortedMostStars, Collections.reverseOrder());
         }
