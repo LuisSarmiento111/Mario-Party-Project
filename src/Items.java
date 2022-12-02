@@ -96,7 +96,7 @@ public class Items {
             int selectedPlayerSpace = selectedPlayer.currentPlayerSpace();
             selectedPlayer.setPlayerSpace(player.currentPlayerSpace());
             player.setPlayerSpace(selectedPlayerSpace);
-            return player.getName() + " has used a Warp Block. They have randomly swapped places with"
+            return player.getName() + " has used a Warp Block. They have randomly swapped places with "
                     + selectedPlayer.getName() + "\n";
         }
         if (item.equals("Halfway Dice")) {

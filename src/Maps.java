@@ -34,15 +34,15 @@ public class Maps {
         startingSpace = 0;
         if (map.equals("lava castle")) {
             maxSpaces = 92;
-            blueSpaces = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 7, 9, 10, 13, 14, 15, 16, 17, 19, 21, 23, 25, 26,
-                    28, 30, 32, 34, 36, 37, 40, 41, 43, 47, 48, 49, 51, 52, 53, 54, 56, 58, 59, 61, 63, 64, 67, 68, 69,
-                    71, 72, 74, 76, 77, 78, 79, 83, 84, 86, 89, 91, 92));
+            blueSpaces = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 7, 9, 10, 13, 14, 16, 17, 19, 21, 23, 25, 26,
+                    28, 30, 32, 34, 36, 37, 40, 41, 43, 47, 48, 49, 51, 52, 53, 54, 56, 58, 59, 61, 63, 64, 67, 69, 71,
+                    72, 74, 76, 77, 78, 79, 83, 84, 86, 89, 91, 92));
             redSpaces = new ArrayList<Integer>(Arrays.asList(1, 8, 18, 29, 35, 45, 62, 80));
-            bowserSpaces = new ArrayList<Integer>(Arrays.asList(12, 31, 55, 88));
+            bowserSpaces = new ArrayList<Integer>(Arrays.asList(12, 31, 55, 68, 88));
             luckySpaces = new ArrayList<Integer>(Arrays.asList(5, 6, 11, 20, 24, 27, 33, 38, 39, 44, 46, 50, 57, 60, 66, 70, 73,
                     75, 81, 82, 85, 90));
             starSpace = (int) (Math.random() * (maxSpaces - 30)) + 15;
-            itemSpaces = new ArrayList<Integer>(Arrays.asList(22, 42, 65, 87));
+            itemSpaces = new ArrayList<Integer>(Arrays.asList(15, 22, 42, 65, 87));
             if (blueSpaces.contains(starSpace)) {
                 blueSpaces.remove(blueSpaces.indexOf(starSpace));
             }
@@ -79,15 +79,15 @@ public class Maps {
         String starMovedTo = "The star moved to space ";
         if (map.equals("lava castle")) {
             maxSpaces = 92;
-            blueSpaces = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 7, 9, 10, 13, 14, 15, 16, 17, 19, 21, 23, 25, 26,
-                    28, 30, 32, 34, 36, 37, 40, 41, 43, 47, 48, 49, 51, 52, 53, 54, 56, 58, 59, 61, 63, 64, 67, 68, 69,
+            blueSpaces = new ArrayList<Integer>(Arrays.asList(2, 3, 4, 7, 9, 10, 13, 14, 16, 17, 19, 21, 23, 25, 26,
+                    28, 30, 32, 34, 36, 37, 40, 41, 43, 47, 48, 49, 51, 52, 53, 54, 56, 58, 59, 61, 63, 64, 67, 69,
                     71, 72, 74, 76, 77, 78, 79, 83, 84, 86, 89, 91, 92));
             redSpaces = new ArrayList<Integer>(Arrays.asList(1, 8, 18, 29, 35, 45, 62, 80));
-            bowserSpaces = new ArrayList<Integer>(Arrays.asList(12, 31, 55, 88));
+            bowserSpaces = new ArrayList<Integer>(Arrays.asList(12, 31, 55, 68, 88));
             luckySpaces = new ArrayList<Integer>(Arrays.asList(5, 6, 11, 20, 24, 27, 33, 38, 39, 44, 46, 50, 57, 60, 66, 70, 73,
                     75, 81, 82, 85, 90));
             starSpace = (int) (Math.random() * (maxSpaces - 30)) + 15;
-            itemSpaces = new ArrayList<Integer>(Arrays.asList(22, 42, 65, 87));
+            itemSpaces = new ArrayList<Integer>(Arrays.asList(15,22, 42, 65, 87));
             if (blueSpaces.contains(starSpace)) {
                 blueSpaces.remove(blueSpaces.indexOf(starSpace));
             }

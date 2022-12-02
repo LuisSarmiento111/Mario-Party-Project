@@ -18,7 +18,7 @@ public class MarioPartyGameRunner {
         System.out.println("\u001B[33mAnd finally if you land on a star space. You can buy a star for 20 coins." + resetColor);
         System.out.println("There are items you can get along the way to boost your chances of winning.");
         System.out.println("Some maps have unique hazards that can change where you are on the map.");
-        System.out.println("The maps you can play are Lava Castle..."); // work on maps I guess
+        System.out.println("The maps you can play are Lava Castle.(There is only one)"); // work on maps I guess
         System.out.println("Which map would you like to play?");
         String userMap = userInput.nextLine();
         while (setup.isMap(userMap) == false) {
@@ -38,7 +38,7 @@ public class MarioPartyGameRunner {
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<String> playernames = new ArrayList<String>();
         for (int i = 0; i <= playerAmount - 1; i++) {
-            players.add(new Player(currentMap, false)); // make so names cant be the same
+            players.add(new Player(currentMap, false));
             System.out.println("What is player " + (i + 1) + "'s name?");
             players.get(i).setName(userInput.nextLine());
             playernames.add(players.get(i).getName());

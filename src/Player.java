@@ -235,18 +235,18 @@ public class Player {
      */
     public String bowserSpaceResults() {
         String results = "";
-        int probabilityNum = (int) (Math.random() * 10) + 1;
-        if (probabilityNum <= 5) {
-            int coinsLost = (int) (Math.random() * 25) + 1;
+        int probabilityNum = (int) (Math.random() * 20) + 1;
+        if (probabilityNum <= 10) {
+            int coinsLost = (int) (Math.random() * 23) + 3;
             playerCoins -= coinsLost;
             if (playerCoins < 0) {
                 playerCoins = 0;
             }
             results = "Bowser decided to take " + coinsLost + " coins!";
-        } else if (probabilityNum > 5 && probabilityNum < 9) {
+        } else if (probabilityNum > 10 && probabilityNum <= 16) {
             playerCoins /= 2;
             results = "Bowser decided to take half of your coins!";
-        } else if (probabilityNum == 9) {
+        } else if (probabilityNum > 16 && probabilityNum <= 19 ) {
             stars--;
             results = "Bowser decided to take one of your stars!";
         } else {
@@ -262,17 +262,20 @@ public class Player {
      */
     public String luckySpaceResults() {
         String results = "";
-        int probabilityNum = (int) (Math.random() * 10) + 1;
-        if (probabilityNum <= 5) {
-            int coinsGained = (int) (Math.random() * 25) + 1;
+        int probabilityNum = (int) (Math.random() * 20) + 1;
+        if (probabilityNum <= 9) {
+            int coinsGained = (int) (Math.random() * 18) + 3;
             playerCoins += coinsGained;
             results = name + " gained " + coinsGained + " coins!";
-        } else if (probabilityNum > 5 && probabilityNum < 8) {
+        } else if (probabilityNum > 9 && probabilityNum <= 14) {
             playerInventory.add("Mushroom");
             results = name + " got a mushroom!";
-        } else if (probabilityNum == 8 || probabilityNum == 9) {
+        } else if (probabilityNum > 14 && probabilityNum <= 17) {
             playerInventory.add("Double Dice");
             results = name + " got a double dice!";
+        } else if (probabilityNum == 18) {
+            playerInventory.add("Triple Dice");
+            results = name + " got a triple dice!";
         } else {
             playerSpace = map.getStarSpace() - ((int) (Math.random() * 10) + 10);
             results = name + " got teleported closer to the star!";

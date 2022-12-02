@@ -24,10 +24,6 @@ public class MarioPartyGame {
     public MarioPartyGame() {
         maps = new ArrayList<>();
         maps.add("lava castle");
-        maps.add("test1");
-        maps.add("test2");
-        maps.add("test3");
-        maps.add("test4");
     }
 
     /**
@@ -52,7 +48,7 @@ public class MarioPartyGame {
     public boolean isMap(String map) {
         boolean isMap = false;
         int mapsIndex = 0;
-        while (mapsIndex < 5) {
+        while (mapsIndex < maps.size()) {
             if (maps.get(mapsIndex).equals(map.toLowerCase())) {
                 isMap = true;
             }
